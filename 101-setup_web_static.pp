@@ -1,6 +1,12 @@
 # set up web servers for deployment.
-package { 'nginx':
-  ensure => installed,
+exec {'update':
+  command  => 'apt-get -y update',
+  provider => 'shell'
+}
+
+package {'nginx':
+  ensure  => present,
+  require => Exec['update']
 }
 
 exec {'create_folder':
@@ -22,9 +28,7 @@ file { '/data/web_static/current':
 }
 
 exec {'configure':
-  command => 'grep -q "location /hbnb_static/" /etc/nginx/sites-available/default || \
-              sed -i "49a\ \n\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}" \
-              /etc/nginx/sites-available/default',
+  command => 'grep -q "location /hbnb_static/" /etc/nginx/sites-available     /default || sed -i "49a\ \n\tlocation /hbnb_static/ {\n\t\talias /data/web_     static/current/;\n\t}" /etc/nginx/sites-available/default',
   require => Package[nginx]
 }
 
