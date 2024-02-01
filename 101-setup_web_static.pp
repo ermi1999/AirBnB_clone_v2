@@ -4,8 +4,8 @@ package { 'nginx':
 }
 
 exec {'create_folder':
-  command   => "mkdir -p /data/web_static/releases/test/ && mkdir -p /data/web_static/shared/",
-  provider  => 'shell',
+  command  => 'mkdir -p /data/web_static/releases/test/ && mkdir -p /data/web_static/shared/',
+  provider => 'shell',
 }
 
 file { '/data/web_static/releases/test/index.html':
@@ -16,14 +16,16 @@ file { '/data/web_static/releases/test/index.html':
 }
 
 file { '/data/web_static/current':
-  ensure => link,
-  target => '/data/web_static/releases/test',
-  require  => Exec['create_folder']
+  ensure  => link,
+  target  => '/data/web_static/releases/test',
+  require => Exec['create_folder']
 }
 
 exec {'configure':
-  command   => 'grep -q "location /hbnb_static/" /etc/nginx/sites-available/default || sed -i "49a\ \n\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}" /etc/nginx/sites-available/default',
-  require   => Package[nginx]
+  command => 'grep -q "location /hbnb_static/" /etc/nginx/sites-available/default || \
+              sed -i "49a\ \n\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}" \
+              /etc/nginx/sites-available/default',
+  require => Package[nginx]
 }
 
 exec {'change_owner':
