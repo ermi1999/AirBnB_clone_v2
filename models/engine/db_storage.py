@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+"""module for a database storage"""
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, scoped_session
 import os
