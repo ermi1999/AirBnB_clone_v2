@@ -21,6 +21,6 @@ class State(BaseModel, Base):
         _cities = storage.all(City)
         result = {}
         for key, value in _cities.items():
-            if value.id == self.id:
+            if value.state_id == self.id:
                 result[key] = value
         return result
