@@ -18,7 +18,8 @@ class State(BaseModel, Base):
     if getenv("HBNB_TYPE_STORAGE") != 'db':
         @property
         def cities(self):
-            """getter attribute that gets all cities whith the current State."""
+            """getter attribute that gets all
+            cities whith the current State."""
             from models import storage
             _cities = storage.all(City)
             result = []
