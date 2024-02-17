@@ -21,8 +21,8 @@ class State(BaseModel, Base):
             """getter attribute that gets all cities whith the current State."""
             from models import storage
             _cities = storage.all(City)
-            result = {}
+            result = []
             for key, value in _cities.items():
                 if value.state_id == self.id:
-                    result[key] = value
+                    result.append(value)
             return result
