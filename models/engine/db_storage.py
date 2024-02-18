@@ -34,8 +34,6 @@ class DBStorage:
         """
         result = {}
         if cls:
-            if type(cls) is str:
-                cls = eval(cls)
             instances = self.__session.query(cls)
             for instance in instances:
                 key = "{}.{}".format(instance.__class__.__name__, instance.id)
