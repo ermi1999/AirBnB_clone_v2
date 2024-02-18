@@ -2,8 +2,13 @@
 """this module starts a flask web application"""
 from models import storage, State
 from flask import Flask, render_template
-from os import getenv
 app = Flask(__name__)
+
+
+@app.route("/states", strict_slashes=False)
+def states():
+    """fetches the storage engine and renders html template"""
+    return render_template("9-states.html", states=storage.all(State))
 
 
 @app.route("/states/<id>", strict_slashes=False)
