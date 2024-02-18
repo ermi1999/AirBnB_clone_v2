@@ -6,10 +6,10 @@ from os import getenv
 app = Flask(__name__)
 
 
-@app.route("/cities_by_states", strict_slashes=False)
-def cities_by_states():
+@app.route("/states/<id>", strict_slashes=False)
+def cities_by_states(id):
     """fetches the storage engine and renders html template"""
-    return render_template("8-cities_by_states.html", states=storage.all(State))
+    return render_template("9-states.html", states=storage.all(State), id=id)
 
 
 @app.teardown_appcontext
